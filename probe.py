@@ -19,13 +19,77 @@
            OR OTHER DEALINGS IN THE SOFTWARE.
 
 """
+import json
 import mimetypes
 import os
+import subprocess
 from logging import Logger
 
-# TODO: Replace with direct call to FFProbe
-#   Unmanic is losing reliance on FFmpeg
-from unmanic.libs import unffmpeg
+
+class FFProbeError(Exception):
+    """
+    FFProbeError
+    Custom exception for errors encountered while executing the ffprobe command.
+    """
+
+    def __init___(self, path, info):
+        Exception.__init__(self, "Unable to fetch data from file {}. {}".format(path, info))
+        self.path = path
+        self.info = info
+
+
+def ffprobe_cmd(params):
+    """
+    Execute a ffprobe command subprocess and read the output
+
+    :param params:
+    :return:
+    """
+    command = ["ffprobe"] + params
+
+    pipe = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    out, err = pipe.communicate()
+
+    # Check for results
+    try:
+        raw_output = out.decode("utf-8")
+    except Exception as e:
+        raise FFProbeError(command, str(e))
+    if pipe.returncode == 1 or 'error' in raw_output:
+        raise FFProbeError(command, raw_output)
+    if not raw_output:
+        raise FFProbeError(command, 'No info found')
+
+    return raw_output
+
+
+def ffprobe_file(vid_file_path):
+    """
+    Returns a dictionary result from ffprobe command line prove of a file
+
+    :param vid_file_path: The absolute (full) path of the video file, string.
+    :return:
+    """
+    if type(vid_file_path) != str:
+        raise Exception('Give ffprobe a full file path of the video')
+
+    params = [
+        "-loglevel", "quiet",
+        "-print_format", "json",
+        "-show_format",
+        "-show_streams",
+        "-show_error",
+        vid_file_path
+    ]
+
+    # Check result
+    results = ffprobe_cmd(params)
+    try:
+        info = json.loads(results)
+    except Exception as e:
+        raise FFProbeError(vid_file_path, str(e))
+
+    return info
 
 
 class Probe(object):
@@ -68,8 +132,8 @@ class Probe(object):
 
         try:
             # Get the file probe info
-            self.probe_info = unffmpeg.Info().file_probe(file_path)
-        except unffmpeg.exceptions.ffprobe.FFProbeError:
+            self.probe_info = ffprobe_file(file_path)
+        except FFProbeError:
             # This will only happen if it was not a file that could be probed.
             self.logger.debug("File unable to be probed by FFProbe - '{}'".format(file_path))
             return
@@ -83,4 +147,5 @@ class Probe(object):
         return self.probe_info
 
     def get(self, key, default=None):
+        """Return the value of the given key from the probe dictionary"""
         return self.probe_info.get(key, default)
