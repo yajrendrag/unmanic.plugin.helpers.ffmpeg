@@ -54,11 +54,11 @@ class StreamMapper(object):
         # Ensure the mapping dictionary provided is correct
         if not isinstance(mapping_dict, dict):
             raise Exception("processing_stream_type must return a dictionary")
-        if not mapping_dict.get('stream_mapping'):
+        if 'stream_mapping' not in mapping_dict:
             raise Exception("processing_stream_type return dictionary must contain 'stream_mapping' key")
         if not isinstance(mapping_dict.get('stream_mapping'), list):
             raise Exception("processing_stream_type 'stream_mapping' value must be of type 'list'")
-        if not mapping_dict.get('stream_encoding'):
+        if 'stream_encoding' not in mapping_dict:
             raise Exception("processing_stream_type return dictionary must contain 'stream_encoding' key")
         if not isinstance(mapping_dict.get('stream_encoding'), list):
             raise Exception("processing_stream_type 'stream_mapping' value must be of type 'list'")
