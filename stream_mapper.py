@@ -339,7 +339,7 @@ class StreamMapper(object):
         :param kwargs:
         :return:
         """
-        self.__build_args(self.generic_options, *args, **kwargs)
+        self.generic_options = self.__build_args(self.generic_options, *args, **kwargs)
 
     def set_ffmpeg_main_options(self, *args, **kwargs):
         """
@@ -352,7 +352,7 @@ class StreamMapper(object):
 
         :return:
         """
-        self.__build_args(self.main_options, *args, **kwargs)
+        self.main_options = self.__build_args(self.main_options, *args, **kwargs)
 
     def set_ffmpeg_advanced_options(self, *args, **kwargs):
         """
@@ -371,7 +371,7 @@ class StreamMapper(object):
 
         :return:
         """
-        self.__build_args(self.advanced_options, *args, **kwargs)
+        self.advanced_options = self.__build_args(self.advanced_options, *args, **kwargs)
 
     def get_stream_mapping(self):
         """
