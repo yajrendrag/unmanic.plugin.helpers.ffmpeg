@@ -135,6 +135,7 @@ class Probe(object):
         try:
             # Get the file probe info
             self.probe_info = ffprobe_file(file_path)
+            return True
         except FFProbeError:
             # This will only happen if it was not a file that could be probed.
             self.logger.debug("File unable to be probed by FFProbe - '{}'".format(file_path))
