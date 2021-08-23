@@ -36,6 +36,8 @@ class StreamMapper(object):
     video_stream_count = 0
     audio_stream_count = 0
     subtitle_stream_count = 0
+    data_stream_count = 0
+    attachment_stream_count = 0
 
     def __init__(self, logger: Logger, processing_stream_type: str):
         self.logger = logger
@@ -108,7 +110,7 @@ class StreamMapper(object):
         if not file_probe_streams:
             return False
 
-        # What type of streams are we looking for ('video', 'audio' or 'subtitle')
+        # What type of streams are we looking for ('video', 'audio', 'subtitle', 'data' or 'attachment')
         processing_stream_type = self.processing_stream_type
 
         # Map the streams into two arrays that will be placed together in the correct order.
@@ -119,6 +121,8 @@ class StreamMapper(object):
         self.video_stream_count = 0
         self.audio_stream_count = 0
         self.subtitle_stream_count = 0
+        self.data_stream_count = 0
+        self.attachment_stream_count = 0
 
         # Set flag for finding a stream that needs to be processed as False by default.
         found_streams_to_process = False
@@ -130,7 +134,7 @@ class StreamMapper(object):
             # If this is a video/image stream?
             if stream_info.get('codec_type').lower() == "video":
                 # Map the video stream
-                if processing_stream_type == "video":
+                if "video" in processing_stream_type:
                     if not self.test_stream_needs_processing(stream_info):
                         self.__copy_stream_mapping('v', self.video_stream_count)
                         self.video_stream_count += 1
@@ -148,9 +152,9 @@ class StreamMapper(object):
                     continue
 
             # If this is a audio stream?
-            if stream_info.get('codec_type').lower() == "audio":
+            elif stream_info.get('codec_type').lower() == "audio":
                 # Map the audio stream
-                if processing_stream_type == "audio":
+                if "audio" in processing_stream_type:
                     if not self.test_stream_needs_processing(stream_info):
                         self.__copy_stream_mapping('a', self.audio_stream_count)
                         self.audio_stream_count += 1
@@ -168,9 +172,9 @@ class StreamMapper(object):
                     continue
 
             # If this is a subtitle stream?
-            if stream_info.get('codec_type').lower() == "subtitle":
+            elif stream_info.get('codec_type').lower() == "subtitle":
                 # Map the subtitle stream
-                if processing_stream_type == "subtitle":
+                if "subtitle" in processing_stream_type:
                     if not self.test_stream_needs_processing(stream_info):
                         self.__copy_stream_mapping('s', self.subtitle_stream_count)
                         self.subtitle_stream_count += 1
@@ -185,6 +189,46 @@ class StreamMapper(object):
                 else:
                     self.__copy_stream_mapping('s', self.subtitle_stream_count)
                     self.subtitle_stream_count += 1
+                    continue
+
+            # If this is a data stream?
+            elif stream_info.get('codec_type').lower() == "data":
+                # Map the data stream
+                if "data" in processing_stream_type:
+                    if not self.test_stream_needs_processing(stream_info):
+                        self.__copy_stream_mapping('d', self.data_stream_count)
+                        self.data_stream_count += 1
+                        continue
+                    else:
+                        found_streams_to_process = True
+                        self.__apply_custom_stream_mapping(
+                            self.custom_stream_mapping(stream_info, self.data_stream_count)
+                        )
+                        self.data_stream_count += 1
+                        continue
+                else:
+                    self.__copy_stream_mapping('d', self.data_stream_count)
+                    self.data_stream_count += 1
+                    continue
+
+            # If this is a attachment stream?
+            elif stream_info.get('codec_type').lower() == "attachment":
+                # Map the attachment stream
+                if "attachment" in processing_stream_type:
+                    if not self.test_stream_needs_processing(stream_info):
+                        self.__copy_stream_mapping('t', self.attachment_stream_count)
+                        self.attachment_stream_count += 1
+                        continue
+                    else:
+                        found_streams_to_process = True
+                        self.__apply_custom_stream_mapping(
+                            self.custom_stream_mapping(stream_info, self.attachment_stream_count)
+                        )
+                        self.attachment_stream_count += 1
+                        continue
+                else:
+                    self.__copy_stream_mapping('t', self.attachment_stream_count)
+                    self.attachment_stream_count += 1
                     continue
 
         return found_streams_to_process
