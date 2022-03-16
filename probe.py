@@ -120,6 +120,13 @@ class Probe(object):
         :param file_path:
         :return:
         """
+        # Add mimetype overrides to mimetype dictionary (replaces any existing entries)
+        from .mimetype_overrides import MimetypeOverrides
+        mimetype_overrides = MimetypeOverrides()
+        all_mimetype_overrides = mimetype_overrides.get_all()
+        for extension in all_mimetype_overrides:
+            mimetypes.add_type(all_mimetype_overrides.get(extension), extension)
+
         # Only run this check against video/audio/image MIME types
         file_type = mimetypes.guess_type(file_path)[0]
 
