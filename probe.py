@@ -144,7 +144,7 @@ class Probe(object):
         # Make sure the MIME type is either audio, video or image
         file_type_category = file_type.split('/')[0]
         if file_type_category not in self.allowed_mimetypes:
-            self.logger.debug("File MIME type not in 'audio', 'video' or 'image' - '{}'".format(file_path))
+            self.logger.debug("File MIME type not in [{}] - '{}'".format(', '.join(self.allowed_mimetypes), file_path))
             return False
 
         return True
@@ -178,7 +178,14 @@ class Probe(object):
 
     def set_probe(self, probe_info):
         """Sets the probe dictionary"""
+        file_path = probe_info.get('format', {}).get('filename')
+        if not file_path:
+            return
+        if not self.__test_valid_mimetype(file_path):
+            return
+
         self.probe_info = probe_info
+        return self.probe_info
 
     def get_probe(self):
         """Return the probe dictionary"""
