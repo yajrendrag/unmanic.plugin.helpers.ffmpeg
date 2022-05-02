@@ -176,6 +176,10 @@ class Probe(object):
             self.logger.debug("File unable to be probed by FFProbe - '{}'".format(file_path))
             return
 
+    def set_probe(self, probe_info):
+        """Sets the probe dictionary"""
+        self.probe_info = probe_info
+
     def get_probe(self):
         """Return the probe dictionary"""
         return self.probe_info
