@@ -37,6 +37,14 @@ class StreamMapper(object):
 
     probe: Probe = None
 
+    stream_type_idents = {
+        'video':      'v',
+        'audio':      'a',
+        'subtitle':   's',
+        'data':       'd',
+        'attachment': 't'
+    }
+
     processing_stream_type = ''
     found_streams_to_encode = False
     stream_mapping = []
