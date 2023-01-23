@@ -169,7 +169,7 @@ class Probe(object):
             # File probe failed, skip the rest of this test
             return
         # Set file probe to shared infor for subsequent file test runners
-        if 'shared_info' in data:
+        if 'shared_info' not in data:
             data['shared_info'] = {}
         data['shared_info']['ffprobe'] = probe.get_probe()
         return probe
