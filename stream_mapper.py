@@ -455,14 +455,14 @@ class StreamMapper(object):
         # Add generic options first
         args += self.generic_options
 
+        # Add other main options
+        args += self.main_options
+
         # Add the input file
         # This class requires at least one input file specified with the input_file attribute
         if not self.input_file:
             raise Exception("Input file has not been set")
         args += ['-i', self.input_file]
-
-        # Add other main options
-        args += self.main_options
 
         # Add advanced options. This includes the stream mapping and the encoding args
         args += self.advanced_options
