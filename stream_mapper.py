@@ -137,7 +137,7 @@ class StreamMapper(object):
         """
         Overwrite this function to test a stream.
         Return 'True' if it needs to be process.
-        Return 'False' if it should just be copied over to the new file
+        Return 'False' if it should just be copied over to the new file.
 
         :param stream_info:
         :return: bool
