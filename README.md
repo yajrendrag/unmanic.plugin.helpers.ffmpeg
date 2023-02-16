@@ -55,9 +55,8 @@ You can import all 3 classes into your plugin like this:
 ```python
 from my_plugin_id.lib.ffmpeg import Parser, Probe, StreamMapper
 ```
-:::note
-Be sure to rename 'my_plugin_id' in the example above.
-:::
+> **Note**
+> Be sure to rename 'my_plugin_id' in the example above.
 
 ---
 
