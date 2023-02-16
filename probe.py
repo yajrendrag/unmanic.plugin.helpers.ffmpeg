@@ -211,6 +211,7 @@ class Probe(object):
         """Sets the probe dictionary"""
         file_path = probe_info.get('format', {}).get('filename')
         if not file_path:
+            self.logger.error("Provided file probe information does not contain the expected 'filename' key.")
             return
         if not self.__test_valid_mimetype(file_path):
             return
