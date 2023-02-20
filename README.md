@@ -83,112 +83,175 @@ You can then use this newly created Probe object in your plugin. To read the FFp
   <summary>Show</summary>
 
   ```json
-  {
-      "streams": [
-          {
-              "index": 0,
-              "codec_name": "mpeg4",
-              "codec_long_name": "MPEG-4 part 2",
-              "profile": "Simple Profile",
-              "codec_type": "video",
-              "codec_tag_string": "[0][0][0][0]",
-              "codec_tag": "0x0000",
-              "width": 1280,
-              "height": 720,
-              "coded_width": 1280,
-              "coded_height": 720,
-              "closed_captions": 0,
-              "film_grain": 0,
-              "has_b_frames": 0,
-              "sample_aspect_ratio": "1:1",
-              "display_aspect_ratio": "16:9",
-              "pix_fmt": "yuv420p",
-              "level": 1,
-              "chroma_location": "left",
-              "refs": 1,
-              "quarter_sample": "false",
-              "divx_packed": "false",
-              "r_frame_rate": "25/1",
-              "avg_frame_rate": "25/1",
-              "time_base": "1/1000",
-              "duration_ts": 56200,
-              "duration": "56.200000",
-              "extradata_size": 47,
-              "disposition": {
-                  "default": 1,
-                  "dub": 0,
-                  "original": 0,
-                  "comment": 0,
-                  "lyrics": 0,
-                  "karaoke": 0,
-                  "forced": 0,
-                  "hearing_impaired": 0,
-                  "visual_impaired": 0,
-                  "clean_effects": 0,
-                  "attached_pic": 0,
-                  "timed_thumbnails": 0,
-                  "captions": 0,
-                  "descriptions": 0,
-                  "metadata": 0,
-                  "dependent": 0,
-                  "still_image": 0
-              }
-          },
-          {
-              "index": 1,
-              "codec_name": "aac",
-              "codec_long_name": "AAC (Advanced Audio Coding)",
-              "profile": "LC",
-              "codec_type": "audio",
-              "codec_tag_string": "[0][0][0][0]",
-              "codec_tag": "0x0000",
-              "sample_fmt": "fltp",
-              "sample_rate": "48000",
-              "channels": 6,
-              "channel_layout": "5.1",
-              "bits_per_sample": 0,
-              "r_frame_rate": "0/0",
-              "avg_frame_rate": "0/0",
-              "time_base": "1/1000",
-              "duration_ts": 56200,
-              "duration": "56.200000",
-              "extradata_size": 2,
-              "disposition": {
-                  "default": 1,
-                  "dub": 0,
-                  "original": 0,
-                  "comment": 0,
-                  "lyrics": 0,
-                  "karaoke": 0,
-                  "forced": 0,
-                  "hearing_impaired": 0,
-                  "visual_impaired": 0,
-                  "clean_effects": 0,
-                  "attached_pic": 0,
-                  "timed_thumbnails": 0,
-                  "captions": 0,
-                  "descriptions": 0,
-                  "metadata": 0,
-                  "dependent": 0,
-                  "still_image": 0
-              }
-          }
-      ],
-      "format": {
-          "filename": "/library/TEST_FILE.mkv",
-          "nb_streams": 2,
-          "nb_programs": 0,
-          "format_name": "matroska,webm",
-          "format_long_name": "Matroska / WebM",
-          "duration": "56.200000",
-          "size": "10494470",
-          "bit_rate": "1493874",
-          "probe_score": 100,
-          "tags": {
-              "ENCODER": "Lavf53.24.2"
-          }
-      }
-  }
+{
+    "streams": [
+        {
+            "index": 0,
+            "codec_name": "hevc",
+            "codec_long_name": "H.265 / HEVC (High Efficiency Video Coding)",
+            "profile": "Main",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "width": 1920,
+            "height": 1080,
+            "coded_width": 1920,
+            "coded_height": 1080,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "16:9",
+            "pix_fmt": "yuv420p",
+            "level": 120,
+            "color_range": "tv",
+            "color_space": "bt709",
+            "color_transfer": "bt709",
+            "color_primaries": "bt709",
+            "chroma_location": "left",
+            "refs": 1,
+            "r_frame_rate": "24000/1001",
+            "avg_frame_rate": "24000/1001",
+            "time_base": "1/1000",
+            "start_pts": 21,
+            "start_time": "0.021000",
+            "extradata_size": 2471,
+            "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0
+            },
+            "tags": {
+                "DURATION": "00:00:10.239000000"
+            }
+        },
+        {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "sample_fmt": "fltp",
+            "sample_rate": "48000",
+            "channels": 6,
+            "channel_layout": "5.1",
+            "bits_per_sample": 0,
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "extradata_size": 5,
+            "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0
+            },
+            "tags": {
+                "language": "eng",
+                "title": "Surround",
+                "DURATION": "00:00:10.005000000"
+            }
+        },
+        {
+            "index": 2,
+            "codec_name": "ass",
+            "codec_long_name": "ASS (Advanced SSA) subtitle",
+            "codec_type": "subtitle",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/1000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 10614,
+            "duration": "10.614000",
+            "extradata_size": 487,
+            "disposition": {
+                "default": 0,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0
+            },
+            "tags": {
+                "language": "bul",
+                "DURATION": "00:00:10.614000000"
+            }
+        }
+    ],
+    "chapters": [
+        {
+            "id": 1,
+            "time_base": "1/1000000000",
+            "start": 0,
+            "start_time": "0.000000",
+            "end": 10000000000,
+            "end_time": "10.000000",
+            "tags": {
+                "title": "Chapter 1"
+            }
+        }
+    ],
+    "format": {
+        "filename": "TEST_FILE.mkv",
+        "nb_streams": 3,
+        "nb_programs": 0,
+        "format_name": "matroska,webm",
+        "format_long_name": "Matroska / WebM",
+        "start_time": "0.000000",
+        "duration": "10.614000",
+        "size": "1280059",
+        "bit_rate": "964807",
+        "probe_score": 100,
+        "tags": {
+            "ENCODER": "Lavf59.27.100"
+        }
+    }
+}
   ```
 </details>
 
