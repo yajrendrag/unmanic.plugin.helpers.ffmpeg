@@ -84,6 +84,7 @@ def ffprobe_file(vid_file_path):
         "-show_format",
         "-show_streams",
         "-show_error",
+        "-show_chapters",
         vid_file_path
     ]
 
